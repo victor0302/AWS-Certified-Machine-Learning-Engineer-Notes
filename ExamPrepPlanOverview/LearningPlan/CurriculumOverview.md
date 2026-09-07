@@ -38,3 +38,7 @@ Deep learning uses artifical neural networks (ANNs) with multiple layers. Input 
 Generative AI is a type of deep learning that can create new content and ideas and powered by very large machine learning models that are pre trained on vast collections of unlabeled data. These are commonly called foundation models (FMs)
 Foundation models: Are Large neural networks trained on massive datasets that can be adapted to a wide range of downstreams tasks. Instead of training a model from scratch, you start with a DM and customize it through fine-tuning, prompt engineering, or RAG. Bedrock provides access to foundation models.
 Rag: combines a foundation model with a knowledge retrieval system. Instead of relying solely on what the model learned during training, RAG retrieves relevant documents from your data and includes them in the model's context. Bedrock Knowledge Bases provides managed RAG infra.
+
+## Formulating Business Problems
+What data do you need to train your model to reach the intended output? Do you have access to that data? If so, how much data do you have and where is it? Which solution can you use to bring all this data into one centrailzed reposi?
+
