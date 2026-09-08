@@ -132,3 +132,24 @@ Programming techniques for merging:
 Python ETL with Pandas and Lambda, write ETL functions or script using Python libraries like Pandas to read diffrent sources, transform the data as needed, then merge and join the datsets together.
 SQL-based merging with Athena and Redshift, use SQL to perform joins, unions, and other transformations direcetly within datasets stored in databsets stored in databases like Redshift.
 Stream merging with Apache Flink: Managed Service for Apche flink to perform merging of real-time streaming data as the data is ingested.
+
+Amazon SageMaker Feature Store
+Raw data is not what machine learning models consume. Models consume features: processed, engineered values dervided from raw data. SageMaker Feature Store is a managed repository that stores these features and keeps them synchronized for both batch training and real-time inference. Without a centralized feature store, teams face training-serving skew: training jobs compute features using batch code (Spark), while inference endpoints compute the same features using differeent real-time code(Lambda). Even slight differences cause model predictions to degrade. Feature Store reduces this by providing a single source of truth. 
+Feature groups: Features are oganized into feature gorups, collections of related features with a shared schema, similar to a database table. Each feature group has a record identifier(primary key) and an event tiem (when the values were computed). Online store provides low-latency reads for real time inference.
+Offline store provides batch reads for training jobs.
+Ingestion methods:
+PutRecord API writes indivdual records synchronously for low-volue, real-time updates.
+Batch ingestion(Spark), SageMaker Feature Store Spark connector writes records in parallel across EMR or Vlue clusters.
+Streaming ingestion(Flink) Managed Service for Apache Flink computes widowed features from Kinesis Data streams. Write results directly to Feature Store using the PutRecord API.
+Retrieval and use cases: Training jobs query the offline store using Athena SQL or by reading Parquet files directly from S3. Infernece endpoints call GetRecord for the latest values or BatchGetRecord for multiple records.
+
+Troubleshooting Ingestion and Storage:
+Monitoring tools:
+CloudWatch Metrics, you can view and analyze metrics for AWS services. Key metrics to monitor include throughout, IOPS, latency, and utilization. 
+CloudWatch Logs, is a log management servicde for collecting, storing, and analyzing logs from various AWS Services.
+Service Dashboards 
+Common failure patterns: Capacity issues( a resource has hit a hard limit) or scalability issues(the architecture cannot handle the current data volume). Uneven data distribution.
+Optimization techniques:
+Batching improves effiecency and throughput by combining multiple data records into fewer API calls and network roundtrips.
+Compression data before transfer cuts bandwirh use and speeds up data movement, though compressoin adds processing overhead that should be weighed against optimization gains. Gzip,Snappy, LZ4.
+Data partiioning, in kineseis data streams, partion kets like customer_ID or trs_ID distributerecords accross shards.
