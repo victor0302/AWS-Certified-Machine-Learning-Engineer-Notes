@@ -76,3 +76,19 @@ Storing and using embeddings
 After you generate embeddings, you store them in a vector database so you can search them by similarity.
 
 ### Document Preparation for RAG
+Retrieval augmented generation (RAG) grounds a foundation models response in your own content. Instead of relying only on what the model learned during training, a RAG system retrieves relrvant passages from your documents and adds them to the prompt. Two preparation steps drive retrieval quality: chunking and metadata extraction.
+
+Chunking:
+Documents are usually too large to embed and retrieve as a single unit, so you split them into smaller shunks.Each chunk is embedded and store separately, and retrieveal retunrs the chunks closest in meaning to the query. Fixed-size default approach uses approximately 300 token per chunk with a 20% overlap. Semantic, groups text by meaning, keeping related sentences tgether and breaking where the topic shifts. Hierarchial, creates layers of chunk, with large parent chunks and smaller child chunks dervided from them. No chunking, treats each doucment as a single chunk. This suits content that is already short and self-contained.
+Metadata Extraction:
+Alongside each chunk, you attach metadata such as the source document, title, author, date, or category.
+Managed RAG preparation:
+Bedrock Knowledge Base automates much of this work. Point at a data source, choose a chunking strategy, and select an embedding model.
+
+### Preparing Data for Foundation Model Customization
+Three common ways to customize a model. Fine-tuning, continued pre-training, and distillation.
+Fine-tuning adapts a model to specific task using labeled examples. You prepare a dataset of prompt-and-response pairs. Split off a validatoin set so you can measure how well the customized model generalizes. Bedrock supports reinforcement fine-tuning, which optimizes a model against a reward signal.
+Continued pre-training adapts a model to a domain using large amounts of unlabeled text, rather than labeled pairs.
+Distillation transfers knowledge from a large, capable teacher model to a smaller, cheaper student model.
+
+### Data Privacy
