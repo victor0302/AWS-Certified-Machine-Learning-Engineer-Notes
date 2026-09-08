@@ -7,3 +7,17 @@ Embedding models converts text or images into numerical vectors that capture mea
 Document prepartion for RAG grounds a model's responses in your own content. Large documents are split into smaller chunks and tagged with metadata so a retrieval system can find the most relvanet passages.
 Preparing data for fine-tuning adapts a foundation model to a specific task using curated examples.
 
+## Categorical Encoding
+Categorical encoding is the process of manipulating text-based variables into number-based variables.
+Types of categorical values:
+For example in a dataset that contains animal medical records, a cat's weight is considered numerical, and the breed of cat is considered catergorical.
+Binary:
+Nominal: categories with no inherent order, such as country or color
+Ordinal: Categories with a meaning ful order.
+When to encode:
+Different ML algorithms might not require you to encode your variables. A random forest model can handle categorical features direcrtly, depending on the implementation.
+
+## Feature engineering
+After your data has been cleaned up and you've encoded it as necessary for your model, you can fine-tune or create new features in your dataset through feature engineering, a method for transforming raw data into more informative features that help models better capture the underlying relationships in the data.
+Numeric feature engineering transfomrs numeric values. often by grouping different numeric values together. Text feature engineering transforms text, often splitting it into smaller pieces.
+
