@@ -144,3 +144,12 @@ Streaming ingestion(Flink) Managed Service for Apache Flink computes widowed fea
 Retrieval and use cases: Training jobs query the offline store using Athena SQL or by reading Parquet files directly from S3. Infernece endpoints call GetRecord for the latest values or BatchGetRecord for multiple records.
 
 Troubleshooting Ingestion and Storage:
+Monitoring tools:
+CloudWatch Metrics, you can view and analyze metrics for AWS services. Key metrics to monitor include throughout, IOPS, latency, and utilization. 
+CloudWatch Logs, is a log management servicde for collecting, storing, and analyzing logs from various AWS Services.
+Service Dashboards 
+Common failure patterns: Capacity issues( a resource has hit a hard limit) or scalability issues(the architecture cannot handle the current data volume). Uneven data distribution.
+Optimization techniques:
+Batching improves effiecency and throughput by combining multiple data records into fewer API calls and network roundtrips.
+Compression data before transfer cuts bandwirh use and speeds up data movement, though compressoin adds processing overhead that should be weighed against optimization gains. Gzip,Snappy, LZ4.
+Data partiioning, in kineseis data streams, partion kets like customer_ID or trs_ID distributerecords accross shards.
