@@ -1,0 +1,9 @@
+# Transform Data
+## Introduction
+The 3 techniques to walk through are data cleaning, catergorical encoding, and feature engineering. Raw data almost always has problems, missing values, duplicates, outliers. Noist inputs cost you accuracy and waste training compute. Once your data is clean, the next step is making it readable to an algorith,. Most ML algorithms only understand numbers, so categorical fields like country, color, or category need to be converted to numeric form. That process is called catergorical encoding. Take a color column, with label encoding you'd map them to 01, and 2. With one hot encoding, each color becomes its own column with a 1 or a 0. Feature engineering, is the step where youo use your knowledge of the problem to create new features or pick out the existing ones that matter the most. For genetative AI workloads, the transformation step looks a little bit different. You're not encoding categories. You're preparing documents for retrieval, splitting them into chunks, generating vector embeddings, and formatting prompt and repsonse pairs for fine tuning.
+Transformation for generative AI:
+Advanced text pre-processing, Foundation models read text as smaller units called tokens, so raw text is first broken down through tokenization. You can also standardize and augment text with domain-specific terms so the model handles speciliazed vocab well.
+Embedding models converts text or images into numerical vectors that capture meaning. Item with similar meaning sit closer togehter in vector space, whihc supports semantic search and retrieval.
+Document prepartion for RAG grounds a model's responses in your own content. Large documents are split into smaller chunks and tagged with metadata so a retrieval system can find the most relvanet passages.
+Preparing data for fine-tuning adapts a foundation model to a specific task using curated examples.
+
