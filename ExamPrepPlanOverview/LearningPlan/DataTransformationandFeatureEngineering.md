@@ -60,3 +60,6 @@ Spark: You can write transformations in Spark SQL. Common use cases include real
 Managed Service for Apache: Runs Apache Flink applications that process streaming data continousuly with low latecy. Common use cases include computing real-time features from event streams, such as rolling counts and aggregates, and writing those featres direcetly to a feature store.
 
 ### Create and Manage Features with SageMaker Feature Store
+Feature groups, You organize features into feature groups, which are collections of related features with a shared schema, similar to a database table. Centrailzed repository, standardized features, automated preprocessing, Managed feature pipelines, reuse for performance
+
+## Generative AI Data preparation
