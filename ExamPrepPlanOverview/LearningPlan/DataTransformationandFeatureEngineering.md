@@ -37,3 +37,26 @@ N Gram model builds on bag of words by producing a group of words  n size. If n 
 Temportal Data, Temporal or time series, data is data involving time, like a series of dates. Feature engineering is important for temporal data because it can capture key trends, cycles, or patterns over time.
 From word counts to embeddings:
 Bag of words and N-gram produce sparse, count-based representations. They capture which words appear, but not what those words mean. Generative AI workloads instead use embedding models, which convert text into dense numerical vectors that capture meaning.
+
+Feature Selection Techniques:
+Feature selection instead reduces dimesntions by removing features, so your model can focus on the most revevant information.
+Feature splitting and combining
+You can use feature splitting and combining to provide the most useful information to your model.
+Feature splitting breaks a feature into multiple derived features, expanding the feature space.
+Feature combining aggregates multiple features into a new combined feature, reducing the feature space.
+Principal componet analysis(PCA) is a statistical technique you can use for dimensionality reduction, which reduces the number of features in a dataset. The goal is to retain most of the variation in the original features while reducing the overall number of features to increase computational efficiency. Transforms the features into a new set of uncorrelated features called principal components, ranked by their variance, with the first components capturing most of the variance in the data.
+
+## AWS Tools for Data Transformation
+### Data transformation with AWS
+AWS Glue and Glue DataBrew
+AWS Glue is a fully managed extract,transform, and load(ETL) serivce that prepares and loads data for analytics. Auto-generates Python code to handle distributed processing, scheduling, and integration with data sources.
+Glue DataBrew is a visual data preparation tool for cleaning, shaping, and normalizing datasets through an interactive interface without coding. Common use cases for the transformation stage:
+Automated ETL pipelines, Data integration, data cleansing and standardization, data quality monitoring, feature engineering, final pretraining preparation
+
+SageMaker Data Wrangler, available in SageMaker Canvas, helps you explore, clean, and preprocess data without writing code.
+Transforming Streaming Data, Lambda, Spark, or EMR, and Managed service for Apache Flink for streaming workloads.
+Lambda: Common use cases include normazling inconsistent streaming data into a standard format, and filtering a stream to drop unneeded data and reduce downstream cost.
+Spark: You can write transformations in Spark SQL. Common use cases include real-time analytics on streams from Apache Kafka or Amazon Kinesis.
+Managed Service for Apache: Runs Apache Flink applications that process streaming data continousuly with low latecy. Common use cases include computing real-time features from event streams, such as rolling counts and aggregates, and writing those featres direcetly to a feature store.
+
+### Create and Manage Features with SageMaker Feature Store
