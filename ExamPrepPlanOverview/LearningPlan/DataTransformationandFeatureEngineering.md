@@ -92,3 +92,10 @@ Continued pre-training adapts a model to a domain using large amounts of unlabel
 Distillation transfers knowledge from a large, capable teacher model to a smaller, cheaper student model.
 
 ### Data Privacy
+Sensitive data and compliance. PII,PHI, and Data residency
+Three techniques protect sensitive value in different ways.
+Masking, replaces sensitive values with altered but realisiic-looking values or partailly hides them.
+Redaction, removed sensitive values entierly and replaces them with a placeholder.
+anonymizatoin, transforms data so an invididual can no longer be identifed, even indirectly. 
+Comprehend, detects and classifies PII in text. Comprehend Medical: Detects PHI in Clinical text. Macie, discovers and classifes sensitive data, such as PII. Glue DataBrew: Applies redaction and masking transformation to columns during data preparation.
+Bedrock Guardrails, for generative AI applications, sensitive information filters block r mask PII.
