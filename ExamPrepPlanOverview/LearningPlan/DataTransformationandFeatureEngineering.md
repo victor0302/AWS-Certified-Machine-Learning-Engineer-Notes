@@ -63,3 +63,16 @@ Managed Service for Apache: Runs Apache Flink applications that process streamin
 Feature groups, You organize features into feature groups, which are collections of related features with a shared schema, similar to a database table. Centrailzed repository, standardized features, automated preprocessing, Managed feature pipelines, reuse for performance
 
 ## Generative AI Data preparation
+### Advanced Text Pre-Processing
+Preparing text for a foundation model means getting it into clean, consistent tokens the model can process efficiently.
+Tokenization is the process of breaking text into smaller units called tokens. A token is oftern a word, part of a word, or a punctuation mark. A model has a context window measured in tokens. Most foundation model pricing is per token.
+Normalzing text, before tokenization, you often normalize text so the model sees consistent input. Common steps include removing boilderplate like navigation menus or reparted headers.
+Domain-specific augmentation, When you adapt a model to specialized domain, your text data might not cover enough variety. Augmentation expands a text dataset by generating new, realistic examples.
+### Embedding Models
+An embedding model converts data into a dense numerical vector that captures meaning.
+Text and image embeddings, embeddings are not limited to text, image embedding models convert images into vectors so you can find visually similar images. Bedrock provides embedding models such as Amazon Titan Text Embeddings for text and Titan Mulitmodal Embeddings for text and image inputs
+Choosing dimensions, an embeddings length is its number of dimensions. Amazon Titan Text Embeddings V2 lets you choose an output of 256, 512, or 1024.
+Storing and using embeddings
+After you generate embeddings, you store them in a vector database so you can search them by similarity.
+
+### Document Preparation for RAG
