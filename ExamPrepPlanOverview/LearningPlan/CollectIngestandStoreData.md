@@ -42,3 +42,93 @@ RAG application moves data through five stages:
 Chunk,Embed,Store,Retrieve,Augment.
 Traditional databases excel at exact-match quieres but struggle with semantic queries. Vector dbs bridge this gap by storing numerical representations (embeddings) that capture semantic meaning. Cosine similarity, measures the angle between two vectors, ignoring magnitude. Dot product, measures similarity weighted by magnitude: considers both direction and length. Use when magnitude carries meaningul information. Euclidean distance, neasures straight line distance between two points. 
 OpenSearch Service, supports appoximate K-NN search using the HNSW and IVF methods, implemented through engines such as Faiss and Lucene. Choose when you need hybrid search or metadata filtering alongside vector similarity.
+RDS/ Aurora with pgvector, the pgvector extension adds vector similarity search to PostgreSQL on Relational Database Service (RDS) and Aurora. Store embeddings alongside relational data in the same db using familiar SQL. Choose pgvector when your team already uses PostgreSQL and wants vector capibility without a new service.
+S3 Vectors, purpose-built vector storage within S2 that significantly lowers cost compared to dedicated vector databases.
+Embedding dimensions, the distance metric, and the index type.
+Chucking Strategies:Fixed-Size chucking, Semantic, and hierarchical.
+Bedrock knowledge Base provides a managed RAG experience that handles ingestion, chunking, embedding, and vector storage automatically,
+
+## Injest, Extract, and Merge Data
+Data ingestion is the process of colecting data from diverse sources, such as dbs, data lakes, and straming sources.
+When analyzing data, batch ingestion and real-time ingestion are the two main approaches.
+Batch ingestion or historical analysis, collects and processes data on scheduled intervals, such as hourly, daily, and weekly.
+Real-time ingestion streams data as it is generated, allowing for near real-time processing. Real-time ingestion for fraud detection, Batch ingestion for historical analysis for transactions.
+AWS offers services that are purpose-bulit for ingesting and processing streaming data at scale. These services include Amazon Kinesis, Managed Streaming for Apache Kafka (Amazon MSK), and Amazon Managed Service for Apache Flink.
+Amazon Kinesis is a streaming data service that can injest and process real-time data streams from different sources. Kinesis consists of several services that provide real-time data streaming and processing.
+Kinesis Data Streams, you can build custom applications for processing real-time data at scale. Managed Service for Apache Flink is a fully managed service. You can run Java or Scala applications using open-source Apache Flink framework ro process srreaming data. Firehouse is a fully managed service that delivers real-time streaming data to destinations such as Amazon S3 and Amazon Redshift.
+Kinesis Data Streams is primarily used for ingesting and processing data. Firehose provides a streamlined method of streaming data to data storage locations. Amazon Managed Service for Apache Flink provides consumption of streaming data in real time for analysis.
+Data ingestion, use Kinesis Data Streams for streaming real-time data from streaming data sources to data consumers. You can use Firehose for streaming data to a data repository. Data processing, Managed Service for Apache Flink to perform real-time processing, transformations, and feature engineering on data. Real-time inference, Stream data processed by Amazon Managed Service for Apache Flink in real-time for machine learning processing to desintations, such as an SageMaker endpoint.
+MSK is a fully managed service that makes it convenient for develpoers to build and run highly available, secure, and scalable applications. MSK uses Apache Kafka to enable real-time streaming data.
+Scenario: You need to land streaming data in S3 or Redshift for later batch processing. 
+
+Service: Amazon Data Firehose. 
+
+Why: No consumer code needed. Firehose handles buffering, batching, and delivery automatically. It is purpose-built for delivery to storage destinations rather than per-event, low-latency consumption.
+Scenario: You need to feed each event to an ML model within milliseconds. 
+
+Service: Amazon Kinesis Data Streams with a Lambda or custom consumer. 
+
+Why: Sub-second latency. You write the consumer logic that calls the SageMaker AI endpoint. Kinesis Data Streams provides the buffer and fan-out
+Scenario: You need to compute aggregations, joins, or windowed features on streaming data before it reaches its destination. 
+
+Service: Amazon Managed Service for Apache Flink. 
+
+Why: Flink provides SQL and code-based stream processing with exactly-once semantics. Use it when the raw stream needs transformation before consumption.
+Scenario: Your team already uses Kafka producers and consumers and wants managed infrastructure. 
+
+Service: Amazon MSK. 
+
+Why: Full Kafka API compatibility. No code changes required for existing Kafka applications.
+
+Modern AI and ML workloads go far beyond structured tabular data. Foundation models on Bedrock increasingly accept multiple input.
+AL and ML workloads consume data across four modalities(text, images,audio, and video)
+Text is the most common, Text is small per file. PDF,TXT,HTML,JSON, and strucuted documents. Foundation of RAG corpora
+Images are medium-sized per file, JPEG,PNG, and TIFF. Central to computer vision and multimodal AI, and supervised traaining requires labels.
+Audio is defined by its sample rate and bit depth, with formats such as WAV,FLAC, and MP#. It is often transcribed to text before a model consumes it.
+Video is the most storage-intenisce modality.
+A typcail audio ingestion pipeline for speech AI: Collect, Standadize, store, transcribe, and catalog
+Metadata enables discovery, filtering, lineage tracking, and compliance.
+
+Data transfer and extraction tools:
+AWS CLI, SDKS. S3 Transfer Acceleration uses CloudFront edge locations to accelerate large data transfers to and from Amazon S3. Database Migration Service (DMS) faciltates database migratoin between databases or to Amazon S3 by extracting data in various formats, such as SQL,JSON,CSV, and XML. Lambda is a serverless compute service that runs code without provisioning servers. AWS Glue is a fully managed extract, transform, and load (ETL) service that prepares and loads data. It can discover, catalog, and extract data from AWS Services.
+DataSync, you can efficient;y transfer data between on-premises systems or AWS services by extracting data from sources. Snow Family devies(AWS Snowball Edge) are physical devices used to transfer large amounts of data into and out of AWS when network transfers are infeasible. Snow devices efficietnly and cost-effectibely move terabytes or petabytes of data into Amazon S3 for inital data transfer.
+AWS has an array of storage and database options that provide flexible data extraction capabilites. S3 serving as a highly scable object storage service. EBS volumes provide storage for machine learing data. EFS allows creating shared files systems, extract data using CLI,SDKs, or with services like Transfer Family and DataSync that facilitate data transfers. RDS is a common source of extracting relational data baecause it offers managed databse instances. DynamoDB is a fully managed NoSQL database service provided by AWS. Opensearch Service provides managed search and analytics capabilites.
+Choosing the right extraction approach:
+Small, frequesnt extractions, use AWS Lambda triggerd by EventBridge schedules or S3 events.
+Large-scale ETL, extracting and transforming large datasets from multiple sources, use AWS GLue. Glue crawlers discover your data, the Data Catalog orginaizes it, and Spark-based ETL jobs extract and transform at scale. 
+Database migration, for one time or ongoing replication fro dbs to your machine learing data lake, use AWS DMS.
+On premises or large physcial transfers. moving terabytes from onprem use DataSync for network based or Snow family
+Data Merging
+After sufficient data has been collected, merging or combining datasets is the next logical step for bringing data sources together.
+Merge strategies:
+Inner join: keeps only records that have matching kets in both datasets.
+Left outer join: Keeps all records from the primary(left) dataset and adds matching records from the seconday dataset. Records without a match get null value for the secondary columns. Use left joins when enriching your main dataset with optional data.
+Full outer join: Keeps all records from both datasets, filling in null values where matches are missing.
+Union(append): Stacks datasets vertically rather than joining them horizontally. Both dataset must have compatible schemas.
+AWS services for data merging:
+AWS Glue is the serverless option: it manages the infra for you, so your team focuses on the merge logic instead of the cluster.
+Best for: Serverless ETL with automatic schema discovery. 
+
+Infrastructure: Fully managed, no clusters to configure. 
+
+Scaling: Automatic, pay per DPU-hour consumed. 
+
+When to choose: You want serverless, pay-per-use ETL without managing infrastructure. Your data fits in standard Glue job sizes. You need automatic schema inference using crawlers.
+Amazon EMR is the cluster-based option: you size and tune the environment yourself, which fits petabyte-scale jobs and existing Spark or Hadoop code.
+
+Best for: Large-scale distributed processing with fine-grained control. 
+
+Infrastructure: Managed clusters with configurable node types. 
+
+Scaling: Manual or auto-scaling cluster configurations. 
+
+When to choose: You need fine-grained control over cluster configuration. Your data exceeds what Glue handles efficiently (petabyte scale). You have existing Spark or Hadoop code.
+AWS Glue ETL workflow in three stages. Input: identify data sources. AWS Glue: create an AWS Glue crawler, then generate ETL scripts and define jobs. output: output the results.
+EMR is a service for processing and analyzing large datasets using open-source tools of big data analysis.
+EMR workflow in three stages. Input: ingest streaming data. EMR cluster distribute the data across the cluster, then tranform it. Output to Amazon S3.
+ETL is done using Apache Spark Streaming API. Distrubute across EMR cluster
+Data quality during merging. Key mismatches, normalzie key formats before merging. Duplicate records, verify output row counts and depulicate when needed. Schema drift. Null propagation.
+Programming techniques for merging:
+Python ETL with Pandas and Lambda, write ETL functions or script using Python libraries like Pandas to read diffrent sources, transform the data as needed, then merge and join the datsets together.
+SQL-based merging with Athena and Redshift, use SQL to perform joins, unions, and other transformations direcetly within datasets stored in databsets stored in databases like Redshift.
+Stream merging with Apache Flink: Managed Service for Apche flink to perform merging of real-time streaming data as the data is ingested.
