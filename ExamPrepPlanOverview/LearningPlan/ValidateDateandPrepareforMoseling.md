@@ -51,3 +51,4 @@ Bias metrics apply to every modality: In numeric data, the facet is a column val
 Resolving class imbalance: Class imbalance, often needs active correction.
 Best practices for addressing class imbalance: Understand your original data, Work with clean data, proritize privacy, and choose the right technique.
 Techniques to resolve class imbalance:
+Resampling, Syntehtic data generation, data augmentation
